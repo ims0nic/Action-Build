@@ -1,4 +1,4 @@
-name: Build OnePlus_SukiSU Ultra All
+name: Build Realme_SukiSU Ultra All
 on:
   workflow_dispatch:
     inputs:
@@ -6,7 +6,7 @@ on:
         type: choice
         description: "配置文件"
         required: true
-        default: oneplus_ace2_pro_v
+        default: oneplus_13r
         options:
           - oneplus_nord_ce4_lite_5g_v
           - oneplus_nord_ce4_v
@@ -39,7 +39,7 @@ on:
         type: choice
         description: "钩子选择"
         required: true
-        default: manual
+        default: tracepoint
         options:
           - kprobe
           - manual
@@ -48,7 +48,7 @@ on:
         type: choice
         description: "下载SUSFS模块调用方式"
         required: true
-        default: NoN
+        default: CI
         options:
           - CI
           - Release
@@ -57,12 +57,12 @@ on:
         type: string
         description: "分支名(必填)/自定义版本标识(输入F不修改)/调整提交hash(留空不修改)"
         required: false
-        default: "susfs-main/Numbersf/"
+        default: "susfs-main/s0n1c/"
       BUILD_TIME:
         type: string
         description: "自定义构建时间 (输入F使用当前时间)"
         required: false
-        default: "Mon Aug 18 09:30:24 UTC 2025"
+        default: "Fri Oct 26 00:30:00 UTC 2025"
       SUFFIX:
         type: string
         description: "自定义内核后缀 (不输入使用随机字符串)"
@@ -602,9 +602,9 @@ jobs:
           echo "调用 manual 钩子"
           patch -p1 -F 3 < scope_min_manual_hooks_v1.5.patch
           elif [ "${{ github.event.inputs.HOOK }}" = "tracepoint" ]; then
-          cp ../../SukiSU_patch/hooks/tracepoint_hooks.patch ./
+          cp ../../SukiSU_patch/hooks/tracepoint_hooks_v1.1.patch ./
           echo "调用 tracepoint 钩子"
-          patch -p1 -F 3 < tracepoint_hooks.patch
+          patch -p1 -F 3 < tracepoint_hooks_v1.1.patch
           fi
 
       - name: Apply ZRAM
